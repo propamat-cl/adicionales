@@ -6,7 +6,7 @@
 <title>Adicional — PROPAMAT</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#1a1a1a;--bg2:#222;--surface:#2a2a2a;--border:#3a3a3a;--red:#cc0000;--red2:#e60000;--red3:rgba(204,0,0,.15);--text:#f0f0f0;--muted:#999;--success:#10b981;--gold:#f59e0b;--radius:10px;}
+:root{--bg:#1a1a1a;--bg2:#222;--surface:#2a2a2a;--border:#3a3a3a;--red:#cc0000;--red2:#e60000;--red3:rgba(204,0,0,.15);--text:#f0f0f0;--muted:#999;--success:#10b981;--danger:#cc0000;--gold:#f59e0b;--radius:10px;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh}
 header{background:var(--bg2);border-bottom:3px solid var(--red);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:72px;position:relative;overflow:hidden;}
@@ -40,6 +40,7 @@ main{max-width:880px;margin:28px auto;padding:0 20px}
 .uf-wrap{position:relative}.uf-wrap input{padding-left:40px}
 .uf-prefix{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:12px;font-weight:700;color:var(--gold)}
 .hint{font-size:11px;color:var(--muted);margin-top:3px}.hint.warn{color:var(--red)}
+.warn-box{background:rgba(204,0,0,.07);border:1px solid rgba(204,0,0,.25);border-radius:8px;padding:14px 16px;font-size:13px;color:#e0a0a0;margin-bottom:20px;display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
 .datos-admin{background:rgba(255,255,255,.03);border:1px solid var(--border);border-left:3px solid var(--red);border-radius:8px;padding:16px;}
 .dato-row{display:flex;gap:8px;margin-bottom:8px;font-size:13px;align-items:flex-start}.dato-row:last-child{margin-bottom:0}
 .dato-label{color:var(--muted);min-width:110px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;padding-top:3px}
@@ -70,6 +71,10 @@ main{max-width:880px;margin:28px auto;padding:0 20px}
 .error-panel .ep-icon{font-size:46px;margin-bottom:12px}
 .error-panel h3{font-size:18px;font-weight:700;color:var(--red);margin-bottom:8px}
 .error-panel p{color:var(--muted);font-size:14px;line-height:1.6}
+.login-panel{background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--red);border-radius:var(--radius);padding:40px;text-align:center;margin-bottom:16px;}
+.login-panel .lp-icon{font-size:46px;margin-bottom:12px}
+.login-panel h3{font-size:18px;font-weight:700;margin-bottom:8px}
+.login-panel p{color:var(--muted);font-size:14px;margin-bottom:20px;line-height:1.6}
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:500}
 .modal-overlay.show{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--red);border-radius:14px;padding:28px;max-width:420px;width:90%;text-align:center}
@@ -98,7 +103,7 @@ main{max-width:880px;margin:28px auto;padding:0 20px}
     <div class="logo-divider"></div>
     <div class="logo-sub">Gestión de<br>Adicionales</div>
   </div>
-  <div class="user-tag">📝 Responsable</div>
+  <div class="user-tag" id="userTag">📝 Responsable</div>
 </header>
 
 <main>
@@ -108,15 +113,29 @@ main{max-width:880px;margin:28px auto;padding:0 20px}
     <div class="red-line"></div>
   </div>
 
+  <!-- LOGIN -->
+  <div class="login-panel" id="loginPanel">
+    <div class="lp-icon">🔐</div>
+    <h3>Iniciar sesión requerido</h3>
+    <p>Para registrar o completar un adicional necesitás iniciar sesión con tu cuenta de PROPAMAT.</p>
+    <button class="btn-pri" onclick="conectar()" style="margin:0 auto">🔐 Iniciar sesión con PROPAMAT</button>
+  </div>
+
+  <!-- ERROR -->
   <div class="error-panel" id="errorPanel">
     <div class="ep-icon">⚠️</div>
     <h3>Link inválido</h3>
     <p>Este enlace no es válido o ya fue utilizado.<br>Contactá al administrador para recibir un nuevo link.</p>
   </div>
 
+  <!-- FORMULARIO -->
   <div id="formResp" style="display:none">
+    <div class="warn-box" id="warnBox">
+      <span>⚠️</span>
+      <span>Completá toda la información para que el adicional quede correctamente registrado en la base de datos.</span>
+    </div>
 
-    <!-- Datos admin (solo visible si viene con ?id) -->
+    <!-- Datos admin (modo link) -->
     <div class="section" id="secDatosAdmin" style="display:none">
       <div class="section-header"><span class="num">01</span><h2>Datos cargados por administración</h2></div>
       <div class="section-body">
@@ -129,7 +148,7 @@ main{max-width:880px;margin:28px auto;padding:0 20px}
       </div>
     </div>
 
-    <!-- Identificación (solo visible si NO viene con ?id) -->
+    <!-- Identificación (modo autónomo) -->
     <div class="section" id="secIdentif">
       <div class="section-header"><span class="num" id="numIdentif">01</span><h2>Identificación del Adicional</h2></div>
       <div class="section-body">
@@ -179,7 +198,7 @@ main{max-width:880px;margin:28px auto;padding:0 20px}
       </div>
     </div>
 
-    <!-- Información a completar -->
+    <!-- Información -->
     <div class="section">
       <div class="section-header"><span class="num" id="numInfo">02</span><h2>Información a Completar</h2></div>
       <div class="section-body">
@@ -254,7 +273,7 @@ main{max-width:880px;margin:28px auto;padding:0 20px}
   <div class="success-panel" id="successPanel">
     <div class="sp-icon">🎉</div>
     <h3>¡Adicional registrado!</h3>
-    <p>Tu información fue registrada correctamente.<br>Los archivos fueron subidos a OneDrive.<br><br>Podés cerrar esta ventana.</p>
+    <p>Tu información fue registrada correctamente en SharePoint.<br>Los archivos fueron subidos a la biblioteca de documentos.<br><br>Podés cerrar esta ventana.</p>
   </div>
 </main>
 
@@ -262,7 +281,7 @@ main{max-width:880px;margin:28px auto;padding:0 20px}
   <div class="modal">
     <div style="font-size:32px;margin-bottom:10px">✅</div>
     <h3>¿Confirmar envío?</h3>
-    <p>Se subirán los archivos a OneDrive y el adicional quedará registrado.</p>
+    <p>Se subirán los archivos a SharePoint y el adicional quedará registrado.</p>
     <div class="modal-actions">
       <button class="btn-sec" onclick="cerrarModal()">Cancelar</button>
       <button class="btn-pri" onclick="ejecutar()">✅ Confirmar</button>
@@ -272,51 +291,121 @@ main{max-width:880px;margin:28px auto;padding:0 20px}
 <div id="toast"></div>
 
 <script>
-const GRAPH_CONFIG={clientId:'f941fed4-0407-40e8-a98c-b02f5635900c',tenantId:'7751b0b8-b830-4c3e-987a-421aef5dc3b8',scopes:['Files.ReadWrite','Mail.Send','User.Read'],onedrivePath:'Adicionales Propamat'};
-let msalInstance=null,adicionalData=null,modoLink=false;
+const SP_CONFIG = {
+  siteUrl: 'https://propamatsacl.sharepoint.com/sites/AdicionalesPropamat',
+  listName: 'Control Adicionales',
+  libraryName: 'Archivos Adicionales',
+  clientId: 'f941fed4-0407-40e8-a98c-b02f5635900c',
+  tenantId: '7751b0b8-b830-4c3e-987a-421aef5dc3b8'
+};
 
-async function initMSAL(){if(!window.msal)await loadScript('https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js');msalInstance=new msal.PublicClientApplication({auth:{clientId:GRAPH_CONFIG.clientId,authority:`https://login.microsoftonline.com/${GRAPH_CONFIG.tenantId}`,redirectUri:window.location.href.split('?')[0]},cache:{cacheLocation:'sessionStorage'}});await msalInstance.initialize();}
-function loadScript(src){return new Promise((r,j)=>{const s=document.createElement('script');s.src=src;s.onload=r;s.onerror=j;document.head.appendChild(s);});}
-async function getToken(){if(!msalInstance)await initMSAL();const a=msalInstance.getAllAccounts();try{const r=await msalInstance.acquireTokenSilent({scopes:GRAPH_CONFIG.scopes,account:a[0]});return r.accessToken;}catch{const r=await msalInstance.acquireTokenPopup({scopes:GRAPH_CONFIG.scopes});return r.accessToken;}}
-async function graph(method,endpoint,body,token){const h={Authorization:`Bearer ${token}`,'Content-Type':'application/json'};const r=await fetch(`https://graph.microsoft.com/v1.0${endpoint}`,{method,headers:h,body:body?JSON.stringify(body):undefined});if(!r.ok)throw new Error(`Graph ${r.status}`);if(r.status===204)return null;return r.json();}
+let msalInstance = null, spToken = null, adicionalData = null, modoLink = false, spItemId = null;
 
-window.addEventListener('load',()=>{
-  const params=new URLSearchParams(window.location.search);
-  const id=params.get('id');
-  if(id){
-    // Modo link enviado por admin
-    const todos=JSON.parse(localStorage.getItem('adicionales')||'{}');
-    const data=todos[id];
-    if(!data){document.getElementById('errorPanel').style.display='block';return;}
-    if(data.completado){document.getElementById('successPanel').style.display='block';return;}
-    adicionalData=data; modoLink=true;
-    document.getElementById('rd-obra').textContent=data.obra||'—';
-    document.getElementById('rd-esp').textContent=data.especialidad||'—';
-    document.getElementById('rd-fecha').textContent=data.fecha||'—';
-    document.getElementById('rd-desc').textContent=data.descripcion||'—';
-    document.getElementById('secDatosAdmin').style.display='block';
-    document.getElementById('secIdentif').style.display='none';
-    document.getElementById('numInfo').textContent='02';
-    document.getElementById('numExcel').textContent='03';
-    document.getElementById('numPDF').textContent='04';
-    document.getElementById('numGen').textContent='05';
-    document.getElementById('pageTitle').textContent='Completar Adicional';
-    document.getElementById('pageDesc').textContent='Completá la información del adicional asignado';
-  } else {
-    // Modo autónomo
-    modoLink=false;
-    document.getElementById('secIdentif').style.display='block';
-    document.getElementById('numInfo').textContent='02';
-    document.getElementById('numExcel').textContent='03';
-    document.getElementById('numPDF').textContent='04';
-    document.getElementById('numGen').textContent='05';
-  }
-  document.getElementById('formResp').style.display='block';
+async function initMSAL() {
+  if (!window.msal) await loadScript('https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js');
+  msalInstance = new msal.PublicClientApplication({
+    auth: { clientId: SP_CONFIG.clientId, authority: `https://login.microsoftonline.com/${SP_CONFIG.tenantId}`, redirectUri: window.location.href.split('?')[0] },
+    cache: { cacheLocation: 'sessionStorage' }
+  });
+  await msalInstance.initialize();
+}
+function loadScript(src) { return new Promise((r,j)=>{const s=document.createElement('script');s.src=src;s.onload=r;s.onerror=j;document.head.appendChild(s);}); }
+
+async function conectar() {
+  try {
+    await initMSAL();
+    const scopes = ['https://propamatsacl.sharepoint.com/Sites.ReadWrite.All','https://propamatsacl.sharepoint.com/AllSites.Write','offline_access'];
+    let result;
+    try { const acc=msalInstance.getAllAccounts(); result=await msalInstance.acquireTokenSilent({scopes,account:acc[0]}); }
+    catch { result=await msalInstance.acquireTokenPopup({scopes}); }
+    spToken = result.accessToken;
+    document.getElementById('userTag').textContent = '👤 ' + result.account.username.split('@')[0];
+    document.getElementById('loginPanel').style.display = 'none';
+    iniciarFormulario();
+  } catch(e) { toast('⚠ Error al iniciar sesión: ' + e.message, true); }
+}
+
+async function spRequest(method, endpoint, body) {
+  const url = `${SP_CONFIG.siteUrl}/_api/${endpoint}`;
+  const headers = { 'Authorization': `Bearer ${spToken}`, 'Accept': 'application/json;odata=verbose', 'Content-Type': 'application/json;odata=verbose' };
+  const res = await fetch(url, { method, headers, body: body ? JSON.stringify(body) : undefined });
+  if (!res.ok) throw new Error(`SP ${res.status}`);
+  if (res.status === 204) return null;
+  return res.json();
+}
+
+async function spUploadFile(carpeta, archivo) {
+  const url = `${SP_CONFIG.siteUrl}/_api/web/GetFolderByServerRelativeUrl('/sites/AdicionalesPropamat/${SP_CONFIG.libraryName}/${carpeta}')/Files/add(url='${encodeURIComponent(archivo.name)}',overwrite=true)`;
+  const res = await fetch(url, { method: 'POST', headers: { 'Authorization': `Bearer ${spToken}`, 'Accept': 'application/json;odata=verbose' }, body: archivo });
+  if (!res.ok) throw new Error(`Upload ${res.status}`);
+}
+
+window.addEventListener('load', async () => {
+  await initMSAL().catch(()=>{});
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('id');
+
+  // Intentar sesión silenciosa
+  try {
+    const scopes = ['https://propamatsacl.sharepoint.com/Sites.ReadWrite.All','https://propamatsacl.sharepoint.com/AllSites.Write','offline_access'];
+    const acc = msalInstance?.getAllAccounts();
+    if (acc?.length > 0) {
+      const result = await msalInstance.acquireTokenSilent({ scopes, account: acc[0] });
+      spToken = result.accessToken;
+      document.getElementById('userTag').textContent = '👤 ' + result.account.username.split('@')[0];
+      document.getElementById('loginPanel').style.display = 'none';
+      iniciarFormulario(id);
+      return;
+    }
+  } catch(e) {}
+
+  // Si no hay sesión, mostrar login
+  document.getElementById('loginPanel').style.display = 'block';
+  // Guardar id para después del login
+  if (id) sessionStorage.setItem('pendingId', id);
 });
 
+async function iniciarFormulario(id) {
+  id = id || sessionStorage.getItem('pendingId') || new URLSearchParams(window.location.search).get('id');
+
+  if (id) {
+    // Modo link — buscar en SharePoint
+    modoLink = true;
+    try {
+      const data = await spRequest('GET', `web/lists/getbytitle('Control Adicionales')/items?$filter=Title eq '${id}'`);
+      const items = data.d.results;
+      if (!items.length) { document.getElementById('errorPanel').style.display='block'; return; }
+      const item = items[0];
+      if (item.Estado === 'Completado') { document.getElementById('successPanel').style.display='block'; return; }
+      spItemId = item.ID;
+      adicionalData = {
+        id, obra: item.Obra, especialidad: item.Especialidad,
+        fecha: item.Fecha_x0020_Presentaci_x00f3_n?.substring(0,10),
+        descripcion: item.Descripci_x00f3_n,
+        responsable: item.Correo_x0020_Responsable
+      };
+      document.getElementById('rd-obra').textContent = item.Obra || '—';
+      document.getElementById('rd-esp').textContent = item.Especialidad || '—';
+      document.getElementById('rd-fecha').textContent = item.Fecha_x0020_Presentaci_x00f3_n?.substring(0,10) || '—';
+      document.getElementById('rd-desc').textContent = item.Descripci_x00f3_n || '—';
+      document.getElementById('secDatosAdmin').style.display = 'block';
+      document.getElementById('secIdentif').style.display = 'none';
+      document.getElementById('pageTitle').textContent = 'Completar Adicional';
+      document.getElementById('pageDesc').textContent = 'Completá la información del adicional asignado';
+    } catch(e) { document.getElementById('errorPanel').style.display='block'; return; }
+  } else {
+    modoLink = false;
+    document.getElementById('secIdentif').style.display = 'block';
+  }
+  document.getElementById('formResp').style.display = 'block';
+}
+
+// IVA
 document.getElementById('totalNetoUF').addEventListener('input',function(){const v=parseFloat(this.value);document.getElementById('totalBrutoUF').value=isNaN(v)?'':(v*1.19).toFixed(2);});
+// Fecha
 document.getElementById('fechaLimite').addEventListener('change',function(){const h=document.getElementById('diasHint');if(!this.value){h.textContent='—';return;}const diff=Math.round((new Date(this.value)-new Date())/86400000);h.className='hint'+(diff<0?' warn':'');h.textContent=diff<0?'⚠ Fecha ya pasó':`Faltan ${diff} día${diff!==1?'s':''}`;});
 
+// Files
 const stores={listExcel:[],listPDF:[],listGeneral:[]};
 const iconos={pdf:'📄',xlsx:'📊',xls:'📊',csv:'📊',dwg:'📐',doc:'📝',docx:'📝',ppt:'📊',pptx:'📊',png:'🖼',jpg:'🖼'};
 const fmt=n=>n<1048576?(n/1024).toFixed(1)+' KB':(n/1048576).toFixed(1)+' MB';
@@ -324,13 +413,19 @@ const ext=n=>n.split('.').pop().toLowerCase();
 function renderList(id){const el=document.getElementById(id);el.innerHTML='';stores[id].forEach((f,i)=>{const d=document.createElement('div');d.className='file-item';d.innerHTML=`<span class="fi-icon">${iconos[ext(f.name)]||'📎'}</span><span class="fi-name">${f.name}</span><span class="fi-size">${fmt(f.size)}</span><span class="fi-del" onclick="rmFile('${id}',${i})">✕</span>`;el.appendChild(d);});}
 function rmFile(id,i){stores[id].splice(i,1);renderList(id);}
 function addFiles(id,files){Array.from(files).forEach(f=>{if(!stores[id].find(x=>x.name===f.name&&x.size===f.size))stores[id].push(f);});renderList(id);}
-[['dzExcel','fileExcel','listExcel'],['dzPDF','filePDF','listPDF'],['dzGeneral','fileGeneral','listGeneral']].forEach(([z,inp,lst])=>{const zone=document.getElementById(z),file=document.getElementById(inp);file.addEventListener('change',()=>addFiles(lst,file.files));zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('over');});zone.addEventListener('dragleave',()=>zone.classList.remove('over'));zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('over');addFiles(lst,e.dataTransfer.files);});});
+[['dzExcel','fileExcel','listExcel'],['dzPDF','filePDF','listPDF'],['dzGeneral','fileGeneral','listGeneral']].forEach(([z,inp,lst])=>{
+  const zone=document.getElementById(z),file=document.getElementById(inp);
+  file.addEventListener('change',()=>addFiles(lst,file.files));
+  zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('over');});
+  zone.addEventListener('dragleave',()=>zone.classList.remove('over'));
+  zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('over');addFiles(lst,e.dataTransfer.files);});
+});
 
 function validar(){
   if(!modoLink){
     const req=[['obra','Seleccioná una obra.'],['especialidad','Seleccioná especialidad.'],['fechaPresentacion','Seleccioná fecha.'],['descripcion','Ingresá descripción.'],['solicitanteId','Ingresá el solicitante.'],['correoResp','Ingresá el correo.']];
     for(const [id,msg] of req){const el=document.getElementById(id);if(!el.value.trim()){toast('⚠ '+msg,true);el.focus();return false;}}
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('correoResp').value)){toast('⚠ El correo no es válido.',true);return false;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('correoResp').value)){toast('⚠ Correo inválido.',true);return false;}
   }
   if(!document.getElementById('totalNetoUF').value){toast('⚠ Ingresá el Total Neto UF.',true);return false;}
   return true;
@@ -340,51 +435,124 @@ function cerrarModal(){document.getElementById('modal').classList.remove('show')
 
 async function ejecutar(){
   cerrarModal();
-  const btn=document.getElementById('btnCompletar');btn.disabled=true;btn.innerHTML='<span>⏳</span> Subiendo archivos...';
+  const btn=document.getElementById('btnCompletar');btn.disabled=true;btn.innerHTML='<span>⏳</span> Subiendo...';
   const pw=document.getElementById('progressWrap'),pf=document.getElementById('progressFill'),pl=document.getElementById('progressLbl');pw.style.display='block';
 
-  // Preparar datos
-  let id,nombreCarpeta,responsable,desc,obra,esp,fecha;
-  if(modoLink){
-    id=adicionalData.id; nombreCarpeta=adicionalData.nombreCarpeta; responsable=adicionalData.responsable;
-    desc=adicionalData.descripcion; obra=adicionalData.obra; esp=adicionalData.especialidad; fecha=adicionalData.fecha;
-  } else {
-    obra=document.getElementById('obra').value; esp=document.getElementById('especialidad').value;
-    fecha=document.getElementById('fechaPresentacion').value; desc=document.getElementById('descripcion').value;
-    responsable=document.getElementById('correoResp').value;
-    id='AD-'+Date.now(); nombreCarpeta=`${id} — ${desc.substring(0,50).replace(/[/\\?%*:|"<>]/g,'_')}`;
-    // Guardar en historial local
-    const todos=JSON.parse(localStorage.getItem('adicionales')||'{}');
-    todos[id]={id,obra,especialidad:esp,fecha,descripcion:desc,responsable,nombreCarpeta,creadoEn:new Date().toISOString(),completado:false};
-    localStorage.setItem('adicionales',JSON.stringify(todos));
-  }
+  const netoUF = parseFloat(document.getElementById('totalNetoUF').value)||0;
+  const brutoUF = parseFloat(document.getElementById('totalBrutoUF').value)||0;
+  const avance = document.getElementById('avanceFisico').value;
+  const comentarios = document.getElementById('comentarios').value;
 
-  try{
-    pf.style.width='15%';pl.textContent='Conectando...';const token=await getToken();
-    // Crear carpeta si modo autónomo
-    if(!modoLink){
-      try{await graph('POST',`/me/drive/root:/${GRAPH_CONFIG.onedrivePath}:/children`,{name:nombreCarpeta,folder:{}, '@microsoft.graph.conflictBehavior':'rename'},token);}catch(e){}
-      for(const sub of ['Excel - APU Cubicacion','PDF - Fichas Tecnicas','Archivos Generales']){try{await graph('POST',`/me/drive/root:/${GRAPH_CONFIG.onedrivePath}/${nombreCarpeta}:/children`,{name:sub,folder:{}, '@microsoft.graph.conflictBehavior':'rename'},token);}catch(e){}}
+  let id, carpeta, responsable;
+
+  try {
+    if (modoLink) {
+      id = adicionalData.id;
+      carpeta = `${id} — ${adicionalData.descripcion?.substring(0,40).replace(/[/\\?%*:|"<>]/g,'_')}`;
+      responsable = adicionalData.responsable;
+
+      pf.style.width='20%'; pl.textContent='Actualizando SharePoint...';
+      // Actualizar item existente
+      const listMeta = await spRequest('GET', `web/lists/getbytitle('Control Adicionales')?$select=ListItemEntityTypeFullName`);
+      const type = listMeta.d.ListItemEntityTypeFullName;
+      await fetch(`${SP_CONFIG.siteUrl}/_api/web/lists/getbytitle('Control Adicionales')/items(${spItemId})`, {
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${spToken}`,
+          'Accept': 'application/json;odata=verbose',
+          'Content-Type': 'application/json;odata=verbose',
+          'IF-MATCH': '*',
+          'X-HTTP-Method': 'MERGE'
+        },
+        body: JSON.stringify({
+          '__metadata': { 'type': type },
+          'Total_x0020_Neto_x0020_UF': netoUF,
+          'Total_x0020_Bruto_x0020_UF': brutoUF,
+          'x__x0025__x0020_Avance_x0020_F': avance,
+          'Comentarios': comentarios,
+          'Estado': 'Completado',
+          'Fecha_x0020_Completado': new Date().toISOString()
+        })
+      });
+    } else {
+      // Modo autónomo — crear nuevo item
+      id = 'AD-' + Date.now();
+      const obra = document.getElementById('obra').value;
+      const esp = document.getElementById('especialidad').value;
+      const fecha = document.getElementById('fechaPresentacion').value;
+      const desc = document.getElementById('descripcion').value;
+      const sol = document.getElementById('solicitanteId').value;
+      responsable = document.getElementById('correoResp').value;
+      carpeta = `${id} — ${desc.substring(0,40).replace(/[/\\?%*:|"<>]/g,'_')}`;
+
+      pf.style.width='20%'; pl.textContent='Guardando en SharePoint...';
+      const listMeta = await spRequest('GET', `web/lists/getbytitle('Control Adicionales')?$select=ListItemEntityTypeFullName`);
+      const type = listMeta.d.ListItemEntityTypeFullName;
+      await spRequest('POST', `web/lists/getbytitle('Control Adicionales')/items`, {
+        '__metadata': { 'type': type },
+        'Title': id,
+        'Descripci_x00f3_n': desc,
+        'Obra': obra,
+        'Especialidad': esp,
+        'Solicitante': sol,
+        'Correo_x0020_Responsable': responsable,
+        'Fecha_x0020_Presentaci_x00f3_n': fecha,
+        'Total_x0020_Neto_x0020_UF': netoUF,
+        'Total_x0020_Bruto_x0020_UF': brutoUF,
+        'Estado': 'Completado',
+        'Fecha_x0020_Registro': new Date().toISOString()
+      });
     }
-    pf.style.width='30%';pl.textContent='Subiendo Excel...';
-    for(const f of stores['listExcel'])await subirArchivo(token,nombreCarpeta,'Excel - APU Cubicacion',f);
-    pf.style.width='55%';pl.textContent='Subiendo PDFs...';
-    for(const f of stores['listPDF'])await subirArchivo(token,nombreCarpeta,'PDF - Fichas Tecnicas',f);
-    pf.style.width='75%';pl.textContent='Subiendo generales...';
-    for(const f of stores['listGeneral'])await subirArchivo(token,nombreCarpeta,'Archivos Generales',f);
-    pf.style.width='90%';pl.textContent='Enviando confirmación...';
-    marcarCompleto(id);
-    const asunto=`Adicional: ${desc?.substring(0,60)}`;
-    const cuerpo=`<div style="font-family:Arial,sans-serif"><div style="background:#1a1a1a;padding:16px 24px;border-top:4px solid #cc0000"><span style="color:#f0f0f0;font-weight:700;font-size:16px;letter-spacing:2px">PR<span style="color:#cc0000">⊙</span>PAMAT</span></div><div style="background:#f8f8f8;padding:24px"><p style="color:#222">Estimado/a,</p><p style="color:#555;margin-top:8px">Su adicional ha sido <strong>completado y registrado correctamente</strong> en la base de datos.</p></div><div style="background:#1a1a1a;padding:12px;text-align:center"><span style="color:#666;font-size:11px">GRUPO PROPAMAT</span></div></div>`;
-    await graph('POST','/me/sendMail',{message:{subject:asunto,body:{contentType:'HTML',content:cuerpo},toRecipients:[{emailAddress:{address:responsable}}]},saveToSentItems:true},token);
-    pf.style.width='100%';pl.textContent='¡Completado!';await delay(400);pw.style.display='none';
-    document.getElementById('formResp').style.display='none';document.getElementById('successPanel').style.display='block';
-  }catch(e){console.error(e);marcarCompleto(id);pw.style.display='none';document.getElementById('formResp').style.display='none';document.getElementById('successPanel').style.display='block';toast('⚠ Sin Graph, estado marcado como completo.',true);}
+
+    // Crear carpeta
+    pf.style.width='40%'; pl.textContent='Creando carpeta...';
+    try {
+      await spRequest('POST', `web/folders`, {
+        '__metadata': { 'type': 'SP.Folder' },
+        'ServerRelativeUrl': `/sites/AdicionalesPropamat/${SP_CONFIG.libraryName}/${carpeta}`
+      });
+      // Subcarpetas
+      for (const sub of ['Excel - APU Cubicacion', 'PDF - Fichas Tecnicas', 'Archivos Generales']) {
+        try {
+          await spRequest('POST', `web/folders`, {
+            '__metadata': { 'type': 'SP.Folder' },
+            'ServerRelativeUrl': `/sites/AdicionalesPropamat/${SP_CONFIG.libraryName}/${carpeta}/${sub}`
+          });
+        } catch(e) {}
+      }
+    } catch(e) { console.warn('Carpeta:', e); }
+
+    // Subir archivos
+    pf.style.width='55%'; pl.textContent='Subiendo Excel...';
+    for (const f of stores['listExcel']) {
+      try { await spUploadFile(`${carpeta}/Excel - APU Cubicacion`, f); } catch(e) { console.warn(e); }
+    }
+    pf.style.width='70%'; pl.textContent='Subiendo PDFs...';
+    for (const f of stores['listPDF']) {
+      try { await spUploadFile(`${carpeta}/PDF - Fichas Tecnicas`, f); } catch(e) { console.warn(e); }
+    }
+    pf.style.width='85%'; pl.textContent='Subiendo generales...';
+    for (const f of stores['listGeneral']) {
+      try { await spUploadFile(`${carpeta}/Archivos Generales`, f); } catch(e) { console.warn(e); }
+    }
+
+    pf.style.width='100%'; pl.textContent='¡Completado!';
+    await delay(400);
+    pw.style.display='none';
+    document.getElementById('formResp').style.display='none';
+    document.getElementById('successPanel').style.display='block';
+    toast('✅ Adicional registrado en SharePoint.');
+
+  } catch(e) {
+    console.error(e);
+    pw.style.display='none';
+    document.getElementById('formResp').style.display='none';
+    document.getElementById('successPanel').style.display='block';
+    toast('⚠ Error parcial, algunos archivos pueden no haberse subido.', true);
+  }
   btn.disabled=false;
 }
 
-async function subirArchivo(token,carpeta,sub,archivo){const ruta=`/${GRAPH_CONFIG.onedrivePath}/${carpeta}/${sub}/${archivo.name}`;const h={Authorization:`Bearer ${token}`,'Content-Type':'application/octet-stream'};await fetch(`https://graph.microsoft.com/v1.0/me/drive/root:${ruta}:/content`,{method:'PUT',headers:h,body:archivo});}
-function marcarCompleto(id){const todos=JSON.parse(localStorage.getItem('adicionales')||'{}');if(todos[id]){todos[id].completado=true;todos[id].fechaCompletado=new Date().toISOString();}localStorage.setItem('adicionales',JSON.stringify(todos));}
 function delay(ms){return new Promise(r=>setTimeout(r,ms));}
 function toast(msg,err=false){const t=document.getElementById('toast');t.textContent=msg;t.className='show'+(err?' err':'');setTimeout(()=>t.className='',5000);}
 </script>

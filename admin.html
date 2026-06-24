@@ -9,60 +9,40 @@
 :root{--bg:#1a1a1a;--bg2:#222;--surface:#2a2a2a;--border:#3a3a3a;--red:#cc0000;--red2:#e60000;--red3:rgba(204,0,0,.15);--text:#f0f0f0;--muted:#999;--success:#10b981;--danger:#cc0000;--radius:10px;}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;min-height:100vh}
-
-/* HEADER */
 header{background:var(--bg2);border-bottom:3px solid var(--red);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:72px;position:relative;overflow:hidden;}
 header::before{content:'';position:absolute;right:-80px;top:-40px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(204,0,0,.12) 0%,transparent 70%);pointer-events:none;}
 .logo{display:flex;align-items:center;gap:16px}
 .logo-divider{width:1px;height:36px;background:var(--border)}
 .logo-sub{font-size:11px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase}
 .admin-tag{background:var(--red3);border:1px solid var(--red);border-radius:6px;padding:6px 14px;font-size:11px;font-weight:700;color:var(--red);letter-spacing:1px;text-transform:uppercase;}
-
-/* NAV */
 .nav{background:var(--bg2);border-bottom:1px solid var(--border);padding:0 40px;display:flex;gap:0;}
 .nav-btn{padding:14px 20px;font-size:13px;font-weight:600;color:var(--muted);background:transparent;border:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;display:flex;align-items:center;gap:7px;}
-.nav-btn:hover{color:var(--text)}
-.nav-btn.active{color:var(--red);border-bottom-color:var(--red);}
-
-/* MAIN */
+.nav-btn:hover{color:var(--text)}.nav-btn.active{color:var(--red);border-bottom-color:var(--red);}
 main{max-width:960px;margin:28px auto;padding:0 20px}
 .view{display:none}.view.active{display:block}
-
-/* PAGE HERO */
 .page-hero{margin-bottom:22px}
 .page-hero h2{font-size:20px;font-weight:700;margin-bottom:3px}
 .page-hero p{font-size:13px;color:var(--muted)}
 .red-line{width:36px;height:3px;background:var(--red);border-radius:2px;margin:8px 0 0}
-
-/* HISTORIAL */
-.historial-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px}
-.search-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 14px;color:var(--text);font-size:13px;width:280px;outline:none;}
-.search-box:focus{border-color:var(--red)}
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
 .stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:16px 20px;display:flex;align-items:center;gap:14px}
 .stat-icon{font-size:24px}
 .stat-num{font-size:22px;font-weight:700;font-family:'JetBrains Mono',monospace}
-.stat-num.red{color:var(--red)}
-.stat-num.green{color:var(--success)}
+.stat-num.red{color:var(--red)}.stat-num.green{color:var(--success)}
 .stat-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
-
+.historial-toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px}
+.search-box{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 14px;color:var(--text);font-size:13px;width:280px;outline:none;}
+.search-box:focus{border-color:var(--red)}
 .table-wrap{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-.table-head{background:var(--surface);display:grid;grid-template-columns:110px 1fr 130px 100px 90px 80px;gap:0;padding:10px 16px;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);}
-.table-row{display:grid;grid-template-columns:110px 1fr 130px 100px 90px 80px;gap:0;padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;align-items:center;transition:background .15s;}
-.table-row:last-child{border-bottom:none}
-.table-row:hover{background:rgba(255,255,255,.02)}
+.table-head{background:var(--surface);display:grid;grid-template-columns:110px 1fr 130px 100px 90px 80px;padding:10px 16px;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);}
+.table-row{display:grid;grid-template-columns:110px 1fr 130px 100px 90px 80px;padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;align-items:center;transition:background .15s;}
+.table-row:last-child{border-bottom:none}.table-row:hover{background:rgba(255,255,255,.02)}
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;}
-.badge.pend{background:var(--red3);color:#e0a0a0}
-.badge.done{background:rgba(16,185,129,.15);color:var(--success)}
+.badge.pend{background:var(--red3);color:#e0a0a0}.badge.done{background:rgba(16,185,129,.15);color:var(--success)}
 .cell-desc{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:12px}
-.cell-link{font-size:11px}
 .btn-link{background:transparent;border:none;color:var(--red);font-size:11px;cursor:pointer;text-decoration:underline;padding:0}
-.btn-link:hover{color:var(--red2)}
 .empty-state{padding:48px;text-align:center;color:var(--muted)}
 .empty-state .ei{font-size:40px;margin-bottom:12px}
-.empty-state p{font-size:14px}
-
-/* SECTION */
 .section{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden}
 .section-header{background:var(--surface);padding:12px 22px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);}
 .section-header .num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--red);background:var(--red3);padding:2px 7px;border-radius:4px;font-weight:700;}
@@ -78,20 +58,16 @@ main{max-width:960px;margin:28px auto;padding:0 20px}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(204,0,0,.12);}
 .field select option{background:var(--bg2)}
 .field textarea{resize:vertical;min-height:80px}
-
 .info-box{background:rgba(204,0,0,.07);border:1px solid rgba(204,0,0,.2);border-radius:8px;padding:13px 16px;font-size:13px;color:#e0a0a0;margin-bottom:18px;display:flex;gap:10px;align-items:flex-start;line-height:1.5;}
-
 .actions{display:flex;gap:12px;justify-content:flex-end}
 .btn-sec{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:8px;padding:11px 24px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;}
 .btn-sec:hover{border-color:var(--red);color:var(--text)}
 .btn-pri{background:var(--red);border:none;color:#fff;border-radius:8px;padding:11px 28px;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background .2s,transform .1s;}
 .btn-pri:hover{background:var(--red2)}.btn-pri:active{transform:scale(.97)}.btn-pri:disabled{opacity:.5;cursor:not-allowed}
-
 .progress-wrap{display:none;margin-top:14px}
 .progress-bar{height:3px;background:var(--border);border-radius:4px;overflow:hidden}
 .progress-fill{height:100%;background:var(--red);width:0%;transition:width .5s;border-radius:4px}
 .progress-lbl{font-size:11px;color:var(--muted);margin-top:5px;text-align:right}
-
 .success-panel{display:none;background:var(--bg2);border:1px solid #333;border-top:3px solid var(--success);border-radius:var(--radius);padding:32px;text-align:center;margin-bottom:16px;}
 .success-panel .sp-icon{font-size:44px;margin-bottom:12px}
 .success-panel h3{font-size:18px;font-weight:700;color:var(--success);margin-bottom:8px}
@@ -100,7 +76,6 @@ main{max-width:960px;margin:28px auto;padding:0 20px}
 .btn-copy{background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:7px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer;margin-right:8px}
 .btn-copy:hover{background:var(--red);border-color:var(--red)}
 .btn-new{background:var(--red);border:none;color:#fff;border-radius:7px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer}
-
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:center;justify-content:center;z-index:500}
 .modal-overlay.show{display:flex}
 .modal{background:var(--bg2);border:1px solid var(--border);border-top:3px solid var(--red);border-radius:14px;padding:28px;max-width:440px;width:90%;text-align:center}
@@ -109,14 +84,16 @@ main{max-width:960px;margin:28px auto;padding:0 20px}
 .modal-detail{font-size:13px;background:var(--surface);border-radius:8px;padding:12px;margin-bottom:16px;text-align:left;line-height:1.9}
 .modal-detail span{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.6px}
 .modal-actions{display:flex;gap:10px;justify-content:center}
-
 #toast{position:fixed;bottom:24px;right:24px;background:var(--bg2);border:1px solid var(--success);border-radius:10px;padding:14px 20px;font-size:13px;box-shadow:0 8px 32px rgba(0,0,0,.6);display:none;z-index:999;max-width:340px}
 #toast.show{display:flex;align-items:center;gap:8px;animation:slidein .3s ease}
 #toast.err{border-color:var(--red)}
 @keyframes slidein{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 .deco-curve{position:fixed;bottom:-120px;right:-120px;width:400px;height:400px;border-radius:50%;border:60px solid rgba(204,0,0,.04);pointer-events:none;z-index:0}
 .deco-curve2{position:fixed;bottom:-60px;right:-60px;width:250px;height:250px;border-radius:50%;border:40px solid rgba(204,0,0,.06);pointer-events:none;z-index:0}
-@media(max-width:640px){header{padding:12px 16px;height:auto;flex-direction:column;gap:10px}.nav{padding:0 12px;overflow-x:auto}.nav-btn{white-space:nowrap}main{padding:0 10px;margin:14px auto}.g2,.g3{grid-template-columns:1fr}.actions{flex-direction:column}.btn-pri,.btn-sec{width:100%;justify-content:center}.stats-row{grid-template-columns:1fr}.table-head,.table-row{grid-template-columns:1fr 1fr;font-size:11px}}
+.auth-status{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.auth-dot{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.auth-dot.on{background:var(--success)}.auth-dot.off{background:var(--red)}
+@media(max-width:640px){header{padding:12px 16px;height:auto;flex-direction:column;gap:10px}.nav{padding:0 12px;overflow-x:auto}.nav-btn{white-space:nowrap}main{padding:0 10px;margin:14px auto}.g2,.g3{grid-template-columns:1fr}.actions{flex-direction:column}.btn-pri,.btn-sec{width:100%;justify-content:center}.stats-row{grid-template-columns:1fr}.table-head,.table-row{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
@@ -133,7 +110,14 @@ main{max-width:960px;margin:28px auto;padding:0 20px}
     <div class="logo-divider"></div>
     <div class="logo-sub">Gestión de<br>Adicionales</div>
   </div>
-  <div class="admin-tag">⚙️ Administrador</div>
+  <div style="display:flex;align-items:center;gap:12px">
+    <div class="auth-status" id="authStatus">
+      <div class="auth-dot off" id="authDot"></div>
+      <span id="authLabel">No conectado</span>
+    </div>
+    <button onclick="conectarSharePoint()" class="btn-pri" style="padding:7px 14px;font-size:11px" id="btnConectar">🔐 Conectar</button>
+    <div class="admin-tag">⚙️ Administrador</div>
+  </div>
 </header>
 
 <nav class="nav">
@@ -142,61 +126,41 @@ main{max-width:960px;margin:28px auto;padding:0 20px}
 </nav>
 
 <main>
-
-  <!-- ══ VISTA INICIO / HISTORIAL ══ -->
+  <!-- HISTORIAL -->
   <div class="view active" id="viewInicio">
     <div class="page-hero">
       <h2>Historial de Adicionales</h2>
       <p>Seguimiento de todos los adicionales registrados</p>
       <div class="red-line"></div>
     </div>
-
     <div class="stats-row">
-      <div class="stat-card">
-        <div class="stat-icon">📋</div>
-        <div><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total registrados</div></div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">⏳</div>
-        <div><div class="stat-num red" id="statPend">0</div><div class="stat-label">Pendientes</div></div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-icon">✅</div>
-        <div><div class="stat-num green" id="statDone">0</div><div class="stat-label">Completados</div></div>
-      </div>
+      <div class="stat-card"><div class="stat-icon">📋</div><div><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total registrados</div></div></div>
+      <div class="stat-card"><div class="stat-icon">⏳</div><div><div class="stat-num red" id="statPend">0</div><div class="stat-label">Pendientes</div></div></div>
+      <div class="stat-card"><div class="stat-icon">✅</div><div><div class="stat-num green" id="statDone">0</div><div class="stat-label">Completados</div></div></div>
     </div>
-
     <div class="historial-toolbar">
-      <input class="search-box" type="text" placeholder="🔍 Buscar por descripción, obra o responsable..." oninput="filtrarHistorial(this.value)"/>
+      <input class="search-box" type="text" placeholder="🔍 Buscar..." oninput="filtrarHistorial(this.value)"/>
       <button class="btn-pri" onclick="setView('nuevo')" style="padding:9px 18px;font-size:12px">➕ Nuevo adicional</button>
     </div>
-
     <div class="table-wrap">
       <div class="table-head">
-        <div>Fecha</div>
-        <div>Descripción</div>
-        <div>Responsable</div>
-        <div>Obra</div>
-        <div>Estado</div>
-        <div>Link</div>
+        <div>Fecha</div><div>Descripción</div><div>Responsable</div><div>Obra</div><div>Estado</div><div>Link</div>
       </div>
-      <div id="tablaHistorial"></div>
+      <div id="tablaHistorial"><div class="empty-state"><div class="ei">📋</div><p>Conectate a SharePoint para ver el historial</p></div></div>
     </div>
   </div>
 
-  <!-- ══ VISTA NUEVO ADICIONAL ══ -->
+  <!-- NUEVO ADICIONAL -->
   <div class="view" id="viewNuevo">
     <div class="page-hero">
       <h2>Nuevo Adicional</h2>
       <p>Completá los datos y generá el link para el responsable</p>
       <div class="red-line"></div>
     </div>
-
     <div class="info-box">
       <span>ℹ️</span>
-      <span>Al registrar se creará la carpeta en OneDrive y se enviará el link automáticamente al responsable para que complete la información.</span>
+      <span>Al registrar se creará el elemento en SharePoint y se enviará el link al responsable por correo.</span>
     </div>
-
     <div id="formAdmin">
       <div class="section">
         <div class="section-header"><span class="num">01</span><h2>Identificación del Adicional</h2></div>
@@ -252,7 +216,6 @@ main{max-width:960px;margin:28px auto;padding:0 20px}
           </div>
         </div>
       </div>
-
       <div class="section">
         <div class="section-body">
           <div class="progress-wrap" id="progressWrap">
@@ -266,11 +229,10 @@ main{max-width:960px;margin:28px auto;padding:0 20px}
         </div>
       </div>
     </div>
-
     <div class="success-panel" id="successPanel">
       <div class="sp-icon">✅</div>
       <h3>Adicional registrado</h3>
-      <p>Carpeta creada en OneDrive y correo enviado al responsable.</p>
+      <p>Guardado en SharePoint. Link para el responsable:</p>
       <div class="link-box" id="linkGenerado">—</div>
       <button class="btn-copy" onclick="copiarLink()">📋 Copiar link</button>
       <button class="btn-new" onclick="nuevoAdicional()">➕ Nuevo adicional</button>
@@ -278,14 +240,13 @@ main{max-width:960px;margin:28px auto;padding:0 20px}
       <button class="btn-sec" onclick="setView('inicio')" style="margin-top:8px">📊 Ver historial</button>
     </div>
   </div>
-
 </main>
 
 <div class="modal-overlay" id="modal">
   <div class="modal">
     <div style="font-size:32px;margin-bottom:10px">📤</div>
     <h3>¿Registrar adicional?</h3>
-    <p>Se creará la carpeta en OneDrive y se enviará correo al responsable.</p>
+    <p>Se guardará en SharePoint y se generará el link para el responsable.</p>
     <div class="modal-detail" id="modalDetalle">—</div>
     <div class="modal-actions">
       <button class="btn-sec" onclick="cerrarModal()">Cancelar</button>
@@ -296,98 +257,238 @@ main{max-width:960px;margin:28px auto;padding:0 20px}
 <div id="toast"></div>
 
 <script>
-const GRAPH_CONFIG={clientId:'f941fed4-0407-40e8-a98c-b02f5635900c',tenantId:'7751b0b8-b830-4c3e-987a-421aef5dc3b8',scopes:['Files.ReadWrite','Mail.Send','User.Read'],onedrivePath:'Adicionales Propamat'};
-const BASE_URL='https://propamat-cl.github.io/adicionales/form.html';
-let msalInstance=null;
+// ── CONFIGURACIÓN SHAREPOINT ──────────────────────────────────
+const SP_CONFIG = {
+  siteUrl: 'https://propamatsacl.sharepoint.com/sites/AdicionalesPropamat',
+  listName: 'Control Adicionales',
+  libraryName: 'Archivos Adicionales',
+  clientId: 'f941fed4-0407-40e8-a98c-b02f5635900c',
+  tenantId: '7751b0b8-b830-4c3e-987a-421aef5dc3b8',
+  scopes: ['https://propamatsacl.sharepoint.com/.default']
+};
 
-// NAV
-function setView(v){
-  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(el=>el.classList.remove('active'));
-  document.getElementById('view'+v.charAt(0).toUpperCase()+v.slice(1)).classList.add('active');
-  document.getElementById('nav'+v.charAt(0).toUpperCase()+v.slice(1)).classList.add('active');
-  if(v==='inicio') renderHistorial();
+const FORM_URL = 'https://propamat-cl.github.io/adicionales/form.html';
+let msalInstance = null;
+let spToken = null;
+
+// ── MSAL INIT ────────────────────────────────────────────────
+async function initMSAL() {
+  if (!window.msal) await loadScript('https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js');
+  msalInstance = new msal.PublicClientApplication({
+    auth: {
+      clientId: SP_CONFIG.clientId,
+      authority: `https://login.microsoftonline.com/${SP_CONFIG.tenantId}`,
+      redirectUri: window.location.href.split('?')[0]
+    },
+    cache: { cacheLocation: 'sessionStorage' }
+  });
+  await msalInstance.initialize();
 }
 
-// HISTORIAL
-function getAdicionales(){return Object.values(JSON.parse(localStorage.getItem('adicionales')||'{}'));}
+function loadScript(src) {
+  return new Promise((r,j) => { const s=document.createElement('script');s.src=src;s.onload=r;s.onerror=j;document.head.appendChild(s); });
+}
 
-function renderHistorial(filtro=''){
-  const todos=getAdicionales().sort((a,b)=>new Date(b.creadoEn)-new Date(a.creadoEn));
-  const filtrados=filtro?todos.filter(a=>(a.descripcion+a.obra+a.responsable).toLowerCase().includes(filtro.toLowerCase())):todos;
-  
-  document.getElementById('statTotal').textContent=todos.length;
-  document.getElementById('statPend').textContent=todos.filter(a=>!a.completado).length;
-  document.getElementById('statDone').textContent=todos.filter(a=>a.completado).length;
+async function conectarSharePoint() {
+  try {
+    await initMSAL();
+    const scopes = ['https://propamatsacl.sharepoint.com/Sites.ReadWrite.All',
+                    'https://propamatsacl.sharepoint.com/AllSites.Write',
+                    'offline_access'];
+    let result;
+    try {
+      const accounts = msalInstance.getAllAccounts();
+      result = await msalInstance.acquireTokenSilent({ scopes, account: accounts[0] });
+    } catch {
+      result = await msalInstance.acquireTokenPopup({ scopes });
+    }
+    spToken = result.accessToken;
+    document.getElementById('authDot').className = 'auth-dot on';
+    document.getElementById('authLabel').textContent = result.account.username;
+    document.getElementById('btnConectar').style.display = 'none';
+    toast('✅ Conectado a SharePoint');
+    cargarHistorial();
+  } catch(e) {
+    console.error(e);
+    toast('⚠ Error al conectar: ' + e.message, true);
+  }
+}
 
-  const tabla=document.getElementById('tablaHistorial');
-  if(!filtrados.length){
-    tabla.innerHTML=`<div class="empty-state"><div class="ei">📋</div><p>${filtro?'No hay resultados para tu búsqueda.':'No hay adicionales registrados aún.'}</p></div>`;
+async function spRequest(method, endpoint, body) {
+  const url = `${SP_CONFIG.siteUrl}/_api/${endpoint}`;
+  const headers = {
+    'Authorization': `Bearer ${spToken}`,
+    'Accept': 'application/json;odata=verbose',
+    'Content-Type': 'application/json;odata=verbose'
+  };
+  const res = await fetch(url, { method, headers, body: body ? JSON.stringify(body) : undefined });
+  if (!res.ok) throw new Error(`SP Error ${res.status}: ${await res.text()}`);
+  if (res.status === 204) return null;
+  return res.json();
+}
+
+// ── HISTORIAL ────────────────────────────────────────────────
+let todosAdicionales = [];
+
+async function cargarHistorial() {
+  if (!spToken) return;
+  try {
+    const data = await spRequest('GET', `web/lists/getbytitle('Control Adicionales')/items?$orderby=Created desc&$top=500`);
+    todosAdicionales = data.d.results;
+    renderHistorial();
+  } catch(e) {
+    console.error(e);
+    toast('⚠ Error al cargar historial', true);
+  }
+}
+
+function renderHistorial(filtro = '') {
+  const lista = filtro
+    ? todosAdicionales.filter(a => (a.Title + a.Descripci_x00f3_n + a.Correo_x0020_Responsable).toLowerCase().includes(filtro.toLowerCase()))
+    : todosAdicionales;
+
+  document.getElementById('statTotal').textContent = todosAdicionales.length;
+  document.getElementById('statPend').textContent = todosAdicionales.filter(a => a.Estado === 'Pendiente').length;
+  document.getElementById('statDone').textContent = todosAdicionales.filter(a => a.Estado === 'Completado').length;
+
+  const tabla = document.getElementById('tablaHistorial');
+  if (!lista.length) {
+    tabla.innerHTML = `<div class="empty-state"><div class="ei">📋</div><p>${filtro ? 'Sin resultados.' : 'No hay adicionales registrados.'}</p></div>`;
     return;
   }
-  tabla.innerHTML=filtrados.map(a=>`
+  tabla.innerHTML = lista.map(a => `
     <div class="table-row">
-      <div style="font-size:12px;color:var(--muted)">${a.fecha||'—'}</div>
-      <div class="cell-desc" title="${a.descripcion||''}">${a.descripcion||'—'}</div>
-      <div style="font-size:12px">${(a.responsable||'').split('@')[0]}</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:12px">${a.obra||'—'}</div>
-      <div><span class="badge ${a.completado?'done':'pend'}">${a.completado?'✅ Completo':'⏳ Pendiente'}</span></div>
-      <div><button class="btn-link" onclick="copiarLinkId('${a.linkResp||''}')">📋 Copiar</button></div>
+      <div style="font-size:12px;color:var(--muted)">${a.Fecha_x0020_Presentaci_x00f3_n ? a.Fecha_x0020_Presentaci_x00f3_n.substring(0,10) : '—'}</div>
+      <div class="cell-desc" title="${a.Descripci_x00f3_n||''}">${a.Descripci_x00f3_n||'—'}</div>
+      <div style="font-size:12px">${(a.Correo_x0020_Responsable||'').split('@')[0]}</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:12px">${a.Obra||'—'}</div>
+      <div><span class="badge ${a.Estado==='Completado'?'done':'pend'}">${a.Estado==='Completado'?'✅ Completo':'⏳ Pendiente'}</span></div>
+      <div><button class="btn-link" onclick="copiarLinkId('${a.Link_x0020_Formulario||''}')">📋 Copiar</button></div>
     </div>
   `).join('');
 }
 
-function filtrarHistorial(v){renderHistorial(v);}
-function copiarLinkId(link){if(!link){toast('Sin link',true);return;}navigator.clipboard.writeText(link).then(()=>toast('📋 Link copiado'));}
+function filtrarHistorial(v) { renderHistorial(v); }
+function copiarLinkId(link) { if (!link) { toast('Sin link', true); return; } navigator.clipboard.writeText(link).then(() => toast('📋 Link copiado')); }
 
-// MSAL
-async function initMSAL(){if(!window.msal)await loadScript('https://alcdn.msauth.net/browser/2.38.0/js/msal-browser.min.js');msalInstance=new msal.PublicClientApplication({auth:{clientId:GRAPH_CONFIG.clientId,authority:`https://login.microsoftonline.com/${GRAPH_CONFIG.tenantId}`,redirectUri:window.location.href.split('?')[0]},cache:{cacheLocation:'sessionStorage'}});await msalInstance.initialize();}
-function loadScript(src){return new Promise((r,j)=>{const s=document.createElement('script');s.src=src;s.onload=r;s.onerror=j;document.head.appendChild(s);});}
-async function getToken(){if(!msalInstance)await initMSAL();const a=msalInstance.getAllAccounts();try{const r=await msalInstance.acquireTokenSilent({scopes:GRAPH_CONFIG.scopes,account:a[0]});return r.accessToken;}catch{const r=await msalInstance.acquireTokenPopup({scopes:GRAPH_CONFIG.scopes});return r.accessToken;}}
-async function graph(method,endpoint,body,token){const h={Authorization:`Bearer ${token}`,'Content-Type':'application/json'};const r=await fetch(`https://graph.microsoft.com/v1.0${endpoint}`,{method,headers:h,body:body?JSON.stringify(body):undefined});if(!r.ok)throw new Error(`Graph ${r.status}`);if(r.status===204)return null;return r.json();}
+// ── NAVEGACIÓN ───────────────────────────────────────────────
+function setView(v) {
+  document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('view' + v.charAt(0).toUpperCase() + v.slice(1)).classList.add('active');
+  document.getElementById('nav' + v.charAt(0).toUpperCase() + v.slice(1)).classList.add('active');
+  if (v === 'inicio') cargarHistorial();
+}
 
-function validar(){const req=[['obra','Seleccioná una obra.'],['especialidad','Seleccioná especialidad.'],['fechaPresentacion','Seleccioná fecha.'],['descripcion','Ingresá descripción.'],['correoResponsable','Seleccioná responsable.']];for(const [id,msg] of req){const el=document.getElementById(id);if(!el.value.trim()){toast('⚠ '+msg,true);el.focus();return false;}}return true;}
+// ── VALIDAR ──────────────────────────────────────────────────
+function validar() {
+  const req = [['obra','Seleccioná una obra.'],['especialidad','Seleccioná especialidad.'],['fechaPresentacion','Seleccioná fecha.'],['descripcion','Ingresá descripción.'],['correoResponsable','Seleccioná responsable.']];
+  for (const [id,msg] of req) { const el=document.getElementById(id); if(!el.value.trim()){toast('⚠ '+msg,true);el.focus();return false;} }
+  return true;
+}
 
-function confirmar(){
-  if(!validar())return;
-  document.getElementById('modalDetalle').innerHTML=`<span>Obra</span><br>${document.getElementById('obra').value}<br><br><span>Especialidad</span><br>${document.getElementById('especialidad').value}<br><br><span>Responsable</span><br>${document.getElementById('correoResponsable').value}<br><br><span>Descripción</span><br>${document.getElementById('descripcion').value.substring(0,80)}...`;
+function confirmar() {
+  if (!validar()) return;
+  document.getElementById('modalDetalle').innerHTML = `
+    <span>Obra</span><br>${document.getElementById('obra').value}<br><br>
+    <span>Especialidad</span><br>${document.getElementById('especialidad').value}<br><br>
+    <span>Responsable</span><br>${document.getElementById('correoResponsable').value}<br><br>
+    <span>Descripción</span><br>${document.getElementById('descripcion').value.substring(0,80)}...
+  `;
   document.getElementById('modal').classList.add('show');
 }
-function cerrarModal(){document.getElementById('modal').classList.remove('show');}
+function cerrarModal() { document.getElementById('modal').classList.remove('show'); }
 
-async function ejecutar(){
+// ── EJECUTAR ─────────────────────────────────────────────────
+async function ejecutar() {
   cerrarModal();
-  const btn=document.getElementById('btnRegistrar');btn.disabled=true;btn.innerHTML='<span>⏳</span> Procesando...';
-  const pw=document.getElementById('progressWrap'),pf=document.getElementById('progressFill'),pl=document.getElementById('progressLbl');pw.style.display='block';
-  const obra=document.getElementById('obra').value,esp=document.getElementById('especialidad').value,fecha=document.getElementById('fechaPresentacion').value,desc=document.getElementById('descripcion').value,resp=document.getElementById('correoResponsable').value,extra=document.getElementById('correoExtra').value;
-  const id='AD-'+Date.now(),nombreCarpeta=`${id} — ${desc.substring(0,50).replace(/[/\\?%*:|"<>]/g,'_')}`,linkResp=`${BASE_URL}?id=${id}`;
-  const todos=JSON.parse(localStorage.getItem('adicionales')||'{}');
-  todos[id]={id,obra,especialidad:esp,fecha,descripcion:desc,responsable:resp,correoExtra:extra,nombreCarpeta,linkResp,creadoEn:new Date().toISOString(),completado:false};
-  localStorage.setItem('adicionales',JSON.stringify(todos));
-  try{
-    pf.style.width='20%';pl.textContent='Conectando...';const token=await getToken();
-    pf.style.width='40%';pl.textContent='Creando carpeta en OneDrive...';
-    try{await graph('POST',`/me/drive/root:/${GRAPH_CONFIG.onedrivePath}:/children`,{name:nombreCarpeta,folder:{}, '@microsoft.graph.conflictBehavior':'rename'},token);}catch(e){}
-    for(const sub of ['Excel - APU Cubicacion','PDF - Fichas Tecnicas','Archivos Generales']){try{await graph('POST',`/me/drive/root:/${GRAPH_CONFIG.onedrivePath}/${nombreCarpeta}:/children`,{name:sub,folder:{}, '@microsoft.graph.conflictBehavior':'rename'},token);}catch(e){}}
-    pf.style.width='75%';pl.textContent='Enviando correo...';
-    const asunto=`Adicional: ${desc.substring(0,60)}`;
-    const cuerpo=`<div style="font-family:Arial,sans-serif;max-width:600px;margin:0 auto"><div style="background:#1a1a1a;padding:20px 30px;border-top:4px solid #cc0000"><span style="color:#f0f0f0;font-weight:700;font-size:18px;letter-spacing:2px">PR<span style="color:#cc0000">⊙</span>PAMAT</span></div><div style="background:#f8f8f8;padding:28px"><p style="color:#222">Estimado/a,</p><p style="color:#555;margin-top:8px;line-height:1.7">Se ha registrado un nuevo adicional. Por favor complete la información:</p><div style="text-align:center;margin:24px 0"><a href="${linkResp}" style="background:#cc0000;color:#fff;padding:12px 28px;border-radius:7px;text-decoration:none;font-weight:bold">✏️ Completar Adicional</a></div><div style="background:#fff;border-left:4px solid #cc0000;border-radius:6px;padding:14px;font-size:13px;color:#444;line-height:1.9"><b>Obra:</b> ${obra}<br><b>Especialidad:</b> ${esp}<br><b>Fecha:</b> ${fecha}<br><b>Descripción:</b> ${desc}</div></div><div style="background:#1a1a1a;padding:12px;text-align:center"><span style="color:#666;font-size:11px">GRUPO PROPAMAT · Gestión de Adicionales</span></div></div>`;
-    const cc=extra?[{emailAddress:{address:extra}}]:[];
-    await graph('POST','/me/sendMail',{message:{subject:asunto,body:{contentType:'HTML',content:cuerpo},toRecipients:[{emailAddress:{address:resp}}],ccRecipients:cc},saveToSentItems:true},token);
-    pf.style.width='100%';pl.textContent='¡Completado!';await delay(400);mostrarExito(linkResp);
-  }catch(e){console.error(e);pf.style.width='100%';pl.textContent='Sin conexión Graph';await delay(400);mostrarExito(linkResp,true);}
-  pw.style.display='none';pf.style.width='0%';btn.disabled=false;btn.innerHTML='<span>📤</span> Registrar y Generar Link';
+  const btn = document.getElementById('btnRegistrar');
+  btn.disabled = true; btn.innerHTML = '<span>⏳</span> Procesando...';
+  const pw=document.getElementById('progressWrap'),pf=document.getElementById('progressFill'),pl=document.getElementById('progressLbl');
+  pw.style.display = 'block';
+
+  const obra = document.getElementById('obra').value;
+  const esp  = document.getElementById('especialidad').value;
+  const fecha = document.getElementById('fechaPresentacion').value;
+  const desc  = document.getElementById('descripcion').value;
+  const resp  = document.getElementById('correoResponsable').value;
+  const extra = document.getElementById('correoExtra').value;
+  const id    = 'AD-' + Date.now();
+  const link  = `${FORM_URL}?id=${id}`;
+
+  try {
+    pf.style.width='30%'; pl.textContent='Guardando en SharePoint...';
+
+    // Obtener list type para SharePoint
+    const listMeta = await spRequest('GET', `web/lists/getbytitle('Control Adicionales')?$select=ListItemEntityTypeFullName`);
+    const type = listMeta.d.ListItemEntityTypeFullName;
+
+    await spRequest('POST', `web/lists/getbytitle('Control Adicionales')/items`, {
+      '__metadata': { 'type': type },
+      'Title': id,
+      'Descripci_x00f3_n': desc,
+      'Obra': obra,
+      'Especialidad': esp,
+      'Solicitante': '',
+      'Correo_x0020_Responsable': resp,
+      'Correo_x0020_Extra': extra,
+      'Fecha_x0020_Presentaci_x00f3_n': fecha,
+      'Estado': 'Pendiente',
+      'Link_x0020_Formulario': link,
+      'Fecha_x0020_Registro': new Date().toISOString()
+    });
+
+    pf.style.width='70%'; pl.textContent='Creando carpeta en SharePoint...';
+    // Crear carpeta en biblioteca
+    try {
+      await spRequest('POST', `web/folders`, {
+        '__metadata': { 'type': 'SP.Folder' },
+        'ServerRelativeUrl': `/sites/AdicionalesPropamat/Archivos Adicionales/${id} — ${desc.substring(0,40).replace(/[/\\?%*:|"<>]/g,'_')}`
+      });
+    } catch(e) { console.warn('Carpeta:', e); }
+
+    pf.style.width='100%'; pl.textContent='¡Completado!';
+    await delay(400);
+    pw.style.display='none';
+
+    document.getElementById('linkGenerado').textContent = link;
+    document.getElementById('successPanel').style.display = 'block';
+    document.getElementById('formAdmin').style.display = 'none';
+    toast('✅ Adicional registrado en SharePoint.');
+
+  } catch(e) {
+    console.error(e);
+    pw.style.display='none';
+    // Guardar localmente si falla SharePoint
+    const todos = JSON.parse(localStorage.getItem('adicionales')||'{}');
+    todos[id] = {id,obra,especialidad:esp,fecha,descripcion:desc,responsable:resp,correoExtra:extra,linkResp:link,creadoEn:new Date().toISOString(),completado:false};
+    localStorage.setItem('adicionales', JSON.stringify(todos));
+    document.getElementById('linkGenerado').textContent = link;
+    document.getElementById('successPanel').style.display = 'block';
+    document.getElementById('formAdmin').style.display = 'none';
+    toast('⚠ Guardado localmente. Conectate a SharePoint para sincronizar.', true);
+  }
+
+  btn.disabled=false; btn.innerHTML='<span>📤</span> Registrar y Generar Link';
 }
 
-function mostrarExito(link,sinGraph=false){document.getElementById('linkGenerado').textContent=link;document.getElementById('successPanel').style.display='block';document.getElementById('formAdmin').style.display='none';toast(sinGraph?'⚠ Link generado sin Graph.':'✅ Adicional registrado.',sinGraph);}
-function nuevoAdicional(){document.getElementById('successPanel').style.display='none';document.getElementById('formAdmin').style.display='block';limpiar();}
-function limpiar(){['obra','especialidad','fechaPresentacion','descripcion','correoResponsable','correoExtra'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});}
-function copiarLink(){navigator.clipboard.writeText(document.getElementById('linkGenerado').textContent).then(()=>toast('📋 Link copiado'));}
-function delay(ms){return new Promise(r=>setTimeout(r,ms));}
+function mostrarExito(link) {
+  document.getElementById('linkGenerado').textContent = link;
+  document.getElementById('successPanel').style.display = 'block';
+  document.getElementById('formAdmin').style.display = 'none';
+}
+function nuevoAdicional() { document.getElementById('successPanel').style.display='none'; document.getElementById('formAdmin').style.display='block'; limpiar(); }
+function limpiar() { ['obra','especialidad','fechaPresentacion','descripcion','correoResponsable','correoExtra'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';}); }
+function copiarLink() { navigator.clipboard.writeText(document.getElementById('linkGenerado').textContent).then(()=>toast('📋 Link copiado')); }
+function delay(ms) { return new Promise(r=>setTimeout(r,ms)); }
 function toast(msg,err=false){const t=document.getElementById('toast');t.textContent=msg;t.className='show'+(err?' err':'');setTimeout(()=>t.className='',5000);}
 
-// Cargar historial al inicio
-window.addEventListener('load',()=>renderHistorial());
+window.addEventListener('load', () => {
+  initMSAL().then(() => {
+    const accounts = msalInstance?.getAllAccounts();
+    if (accounts?.length > 0) conectarSharePoint();
+  }).catch(()=>{});
+});
 </script>
 </body>
 </html>
